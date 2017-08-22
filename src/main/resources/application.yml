@@ -1,0 +1,9 @@
+spring:
+ datasource:
+   url: jdbc:mysql://192.168.10.139:3306/e_fmt?useUnicode=true&characterEncoding=utf8&autoReconnect=true
+   username: 66money
+   password: asdefg
+ security:
+    user:
+      name: ttadmin
+      password: ttadmin
