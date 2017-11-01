@@ -121,12 +121,18 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.22</version>
         </dependency>
-
+        <!--apache start-->
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
             <version>2.6</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.3</version>
+        </dependency>
+      <!--apache end-->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
