@@ -1,208 +1,245 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.hml.blog</groupId>
-    <artifactId>spring-boot-blog</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+  <groupId>com.hml.blog</groupId>
+  <artifactId>spring-boot-blog</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
 
-    <name>spring-boot-blog</name>
-    <description>Demo project for Spring Boot</description>
+  <name>spring-boot-blog</name>
+  <description>Demo project for Spring Boot</description>
 
-    <parent>
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>1.5.6.RELEASE</version>
+    <relativePath/> <!-- lookup parent from repository -->
+  </parent>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <java.version>1.8</java.version>
+    <moco.version>0.11.1</moco.version>
+  </properties>
+
+  <dependencies>
+    <!-- log related -->
+    <dependency> <!-- exclude掉spring-boot的默认log配置 -->
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-logging</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency> <!-- 引入log4j2依赖 -->
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-log4j2</artifactId>
+    </dependency>
+    <dependency>  <!-- 加上这个才能辨认到log4j2.yml文件 -->
+      <groupId>com.fasterxml.jackson.dataformat</groupId>
+      <artifactId>jackson-dataformat-yaml</artifactId>
+    </dependency>
+    <!-- end of log related -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-cache</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-redis</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.mybatis.spring.boot</groupId>
+      <artifactId>mybatis-spring-boot-starter</artifactId>
+      <version>1.3.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-devtools</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <!--暴露监控指标 start-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.prometheus</groupId>
+      <artifactId>simpleclient_spring_boot</artifactId>
+      <version>0.0.26</version>
+    </dependency>
+    <!--暴露监控指标 end-->
+    <!--moco server start-->
+    <dependency>
+      <groupId>com.github.dreamhead</groupId>
+      <artifactId>moco-core</artifactId>
+      <version>${moco.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.dreamhead</groupId>
+      <artifactId>moco-runner</artifactId>
+      <version>${moco.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.dreamhead</groupId>
+      <artifactId>moco-junit</artifactId>
+      <version>${moco.version}</version>
+    </dependency>
+    <!--moco server end-->
+
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
+      <version>1.2.22</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>20.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>dubbo</artifactId>
+      <version>2.5.3</version>
+      <exclusions>
+        <exclusion>
+          <!-- 排除传递spring依赖 -->
+          <artifactId>spring</artifactId>
+          <groupId>org.springframework</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.zookeeper</groupId>
+      <artifactId>zookeeper</artifactId>
+      <version>3.4.8</version>
+    </dependency>
+    <!-- <dependency>
+         <groupId>com.github.sgroschupf</groupId>
+         <artifactId>zkclient</artifactId>
+         <version>0.1</version>
+     </dependency>-->
+    <dependency>
+      <groupId>com.101tec</groupId>
+      <artifactId>zkclient</artifactId>
+      <version>0.10</version>
+    </dependency>
+    <!--Apollo start-->
+    <dependency>
+      <groupId>com.ctrip.framework.apollo</groupId>
+      <artifactId>apollo-client</artifactId>
+      <version>0.7.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.ctrip.framework.apollo</groupId>
+      <artifactId>apollo-core</artifactId>
+      <version>0.7.0</version>
+    </dependency>
+    <!--Apollo end-->
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
+      <version>1.2.41</version>
+    </dependency>
+    <dependency>
+      <groupId>com.thoughtworks.xstream</groupId>
+      <artifactId>xstream</artifactId>
+      <version>1.4.10</version>
+    </dependency>
+    <!--apache commons utils start-->
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>4.5.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.7</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+      <version>3.2.2</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-beanutils</groupId>
+      <artifactId>commons-beanutils</artifactId>
+      <version>1.9.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-email</artifactId>
+      <version>1.5</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-fileupload</groupId>
+      <artifactId>commons-fileupload</artifactId>
+      <version>1.3.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-math3</artifactId>
+      <version>3.6.1</version>
+    </dependency>
+    <!--apache commons utils end-->
+  </dependencies>
+
+  <build>
+    <plugins>
+      <!-- 资源文件拷贝插件 -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <configuration>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
+      <!-- java编译插件 -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.6.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-        <moco.version>0.11.1</moco.version>
-    </properties>
-
-    <dependencies>
-        <!-- log related -->
-        <dependency> <!-- exclude掉spring-boot的默认log配置 -->
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency> <!-- 引入log4j2依赖 -->
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-log4j2</artifactId>
-        </dependency>
-        <dependency>  <!-- 加上这个才能辨认到log4j2.yml文件 -->
-            <groupId>com.fasterxml.jackson.dataformat</groupId>
-            <artifactId>jackson-dataformat-yaml</artifactId>
-        </dependency>
-        <!-- end of log related -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-cache</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>1.3.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <!--暴露监控指标 start-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.prometheus</groupId>
-            <artifactId>simpleclient_spring_boot</artifactId>
-            <version>0.0.26</version>
-        </dependency>
-        <!--暴露监控指标 end-->
-        <!--moco server start-->
-        <dependency>
-            <groupId>com.github.dreamhead</groupId>
-            <artifactId>moco-core</artifactId>
-            <version>${moco.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.dreamhead</groupId>
-            <artifactId>moco-runner</artifactId>
-            <version>${moco.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.dreamhead</groupId>
-            <artifactId>moco-junit</artifactId>
-            <version>${moco.version}</version>
-        </dependency>
-        <!--moco server end-->
-
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>1.2.22</version>
-        </dependency>
-        <!--apache start-->
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>2.6</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>4.5.3</version>
-        </dependency>
-      <!--apache end-->
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>20.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>dubbo</artifactId>
-            <version>2.5.3</version>
-            <exclusions>
-                <exclusion>
-                    <!-- 排除传递spring依赖 -->
-                    <artifactId>spring</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.zookeeper</groupId>
-            <artifactId>zookeeper</artifactId>
-            <version>3.4.8</version>
-        </dependency>
-        <!-- <dependency>
-             <groupId>com.github.sgroschupf</groupId>
-             <artifactId>zkclient</artifactId>
-             <version>0.1</version>
-         </dependency>-->
-        <dependency>
-            <groupId>com.101tec</groupId>
-            <artifactId>zkclient</artifactId>
-            <version>0.10</version>
-        </dependency>
-        <!--Apollo start-->
-        <dependency>
-            <groupId>com.ctrip.framework.apollo</groupId>
-            <artifactId>apollo-client</artifactId>
-            <version>0.7.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.ctrip.framework.apollo</groupId>
-            <artifactId>apollo-core</artifactId>
-            <version>0.7.0</version>
-        </dependency>
-        <!--Apollo end-->
-    </dependencies>
-
-    <build>
-        <plugins>
-            <!-- 资源文件拷贝插件 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <configuration>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-            <!-- java编译插件 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
 </project>

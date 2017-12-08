@@ -2,6 +2,7 @@ package learn.common.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
@@ -46,14 +47,14 @@ public class DateUtils {
   }
 
   public static int getCurrentYear() {
-    Calendar c = Calendar.getInstance();
-    return c.get(Calendar.YEAR);
+    LocalDateTime dt = LocalDateTime.now();
+    return dt.getYear();
   }
 
 
   public static int getCurrentMonth() {
-    Calendar c = Calendar.getInstance();
-    return c.get(Calendar.MONTH) + 1;
+    LocalDateTime dt = LocalDateTime.now();
+    return dt.getMonthValue();
   }
 
   public static String getMonthAndDay() {
@@ -64,8 +65,8 @@ public class DateUtils {
   }
 
   public static int getCurrentDay() {
-    Calendar c = Calendar.getInstance();
-    return c.get(Calendar.DATE);
+    LocalDateTime dt = LocalDateTime.now();
+    return dt.getDayOfMonth();
   }
 
   public static Date getDateByPattern(String date, String pattern) {
@@ -78,6 +79,13 @@ public class DateUtils {
   }
 
   public static void main(String[] args) {
+    LocalDateTime dt = LocalDateTime.now();
+    System.out.println(dt.getMonth());
+    System.out.println(dt.getDayOfMonth());
+    System.out.println(dt.getDayOfWeek());
+    System.out.println(dt.getDayOfYear());
+    System.out.println(dt.getHour());
+    System.out.println(getCurrentYear());
     System.out.println(getCurrentDay());
     System.out.println(getCurrentMonth());
     System.out.println(getCurrentDay());

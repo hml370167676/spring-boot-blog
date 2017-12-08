@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
@@ -11,14 +13,19 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import javax.net.ssl.SSLContext;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.HttpVersion;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicHttpResponse;
 import org.apache.http.ssl.SSLContexts;
 import org.apache.http.util.EntityUtils;
 
@@ -102,6 +109,24 @@ public class HttpClientLearn {
   public void postForm(String url){
     CloseableHttpClient httpClient = HttpClients.createDefault();
     HttpPost httpPost = new HttpPost(url);
+
+  }
+
+  public void getRequest(String url) throws IOException, URISyntaxException {
+    CloseableHttpClient httpclient = HttpClients.createDefault();
+    HttpGet httpget = new HttpGet(url);
+    CloseableHttpResponse response = httpclient.execute(httpget);
+
+    URI uri = new URIBuilder()
+        .setScheme("http")
+        .setHost("www.google.com")
+        .setPath("/search")
+        .setParameter("q", "httpclient")
+        .setParameter("btnG", "Google Search")
+        .setParameter("aq", "f")
+        .setParameter("oq", "")
+        .build();
+    HttpResponse response1 = new BasicHttpResponse(HttpVersion.HTTP_1_1, HttpStatus.SC_OK, "OK");
 
   }
 
