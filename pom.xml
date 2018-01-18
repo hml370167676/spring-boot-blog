@@ -27,6 +27,12 @@
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>6.13.1</version>
+      <scope>test</scope>
+    </dependency>
     <!-- log related -->
     <dependency> <!-- exclude掉spring-boot的默认log配置 -->
       <groupId>org.springframework.boot</groupId>
@@ -41,6 +47,12 @@
     <dependency> <!-- 引入log4j2依赖 -->
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-log4j2</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.logging.log4j</groupId>
+          <artifactId>log4j-slf4j-impl</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>  <!-- 加上这个才能辨认到log4j2.yml文件 -->
       <groupId>com.fasterxml.jackson.dataformat</groupId>
@@ -67,6 +79,12 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>ch.qos.logback</groupId>
+          <artifactId>logback-classic</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -122,7 +140,6 @@
       <artifactId>fastjson</artifactId>
       <version>1.2.22</version>
     </dependency>
-
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
@@ -183,11 +200,12 @@
       <artifactId>httpclient</artifactId>
       <version>4.5.3</version>
     </dependency>
-    <dependency>
+    <!--springboot 已依赖引入-->
+  <!--  <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
       <version>3.7</version>
-    </dependency>
+    </dependency>-->
     <dependency>
       <groupId>commons-collections</groupId>
       <artifactId>commons-collections</artifactId>

@@ -4,6 +4,7 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.security.NoTypePermission;
 import com.thoughtworks.xstream.security.NullPermission;
 import com.thoughtworks.xstream.security.PrimitiveTypePermission;
+import java.io.StringReader;
 import java.util.Collection;
 
 /**
@@ -72,7 +73,6 @@ public class XStreamLearn {
 //    xstream.processAnnotations(group.getClass());//应用Group类的注解
     xml = xstream.toXML(group);
     System.out.println(xml);
-
 
 
 
